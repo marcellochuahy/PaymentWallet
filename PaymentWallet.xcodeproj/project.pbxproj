@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5FC9D8182ED6247000EF9D63 /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 5FC9D8172ED6247000EF9D63 /* AuthFeature */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5F1024DA2ED5F2ED00FD2388 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FC9D8182ED6247000EF9D63 /* AuthFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +130,7 @@
 			);
 			name = PaymentWallet;
 			packageProductDependencies = (
+				5FC9D8172ED6247000EF9D63 /* AuthFeature */,
 			);
 			productName = PaymentWallet;
 			productReference = 5F1024C32ED5F2EB00FD2388 /* PaymentWallet.app */;
@@ -208,6 +214,9 @@
 			);
 			mainGroup = 5F1024BA2ED5F2EB00FD2388;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5FC9D8102ED61D6600EF9D63 /* XCLocalSwiftPackageReference "AuthFeature" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5F1024C42ED5F2EB00FD2388 /* Products */;
 			projectDirPath = "";
@@ -591,6 +600,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		5FC9D8102ED61D6600EF9D63 /* XCLocalSwiftPackageReference "AuthFeature" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = AuthFeature;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5FC9D8172ED6247000EF9D63 /* AuthFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5FC9D8102ED61D6600EF9D63 /* XCLocalSwiftPackageReference "AuthFeature" */;
+			productName = AuthFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5F1024BB2ED5F2EB00FD2388 /* Project object */;
 }

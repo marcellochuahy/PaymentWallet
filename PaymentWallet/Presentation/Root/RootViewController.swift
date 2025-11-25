@@ -31,6 +31,23 @@ final class RootViewController: UIViewController {
     override func loadView() {
         view = customView
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startLoginFlowIfNeeded()
+    }
+    
+    // MARK: - Private Methods
+    
+    private func startLoginFlowIfNeeded() {
+        guard let navigationController = navigationController else { return }
+        
+        let coordinator = LoginCoordinator(
+            navigationController: navigationController,
+            dependencies: dependencies
+        )
+        coordinator.start()
+    }
 
 }
 

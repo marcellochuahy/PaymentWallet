@@ -12,7 +12,20 @@ final class RootViewController: UIViewController {
     // MARK: - Properties
 
     private let customView = RootView()
+    private let dependencies: AppDependencies
 
+    // MARK: - Initializers
+    
+    init(dependencies: AppDependencies) {
+        self.dependencies = dependencies
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     override func loadView() {

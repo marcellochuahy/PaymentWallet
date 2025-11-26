@@ -13,6 +13,7 @@ import Foundation
 /// It exposes all core services and repositories that the presentation layer can depend on.
 /// Concrete implementations can be used in production and tests.
 protocol AppDependencies {
+    
     // Repositories
     var authRepository: AuthRepository { get }
     var walletRepository: WalletRepository { get }
@@ -23,6 +24,7 @@ protocol AppDependencies {
     // Services
     var authorizationService: AuthorizationService { get }
     var notificationScheduler: LocalNotificationScheduler { get }
+    
 }
 
 // MARK: - DependencyContainer

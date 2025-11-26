@@ -1,0 +1,6 @@
+framework module WalletFeature {
+  umbrella header "WalletFeature-umbrella.h"
+
+  export *
+  module * { export * }
+}

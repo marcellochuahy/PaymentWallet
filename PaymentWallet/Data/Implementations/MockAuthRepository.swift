@@ -6,22 +6,26 @@
 //
 
 import Foundation
-
-// MARK: - MockAuthRepository
+import AuthFeature
 
 final class MockAuthRepository: AuthRepository {
-
-    // MARK: - Properties
 
     private let validEmail = "user@example.com"
     private let validPassword = "123456"
 
-    // MARK: - Methods
-
     func login(email: String, password: String) throws -> User {
-        if email == validEmail && password == validPassword {
-            return User(name: "John Doe", email: email)
+        
+        let cleanedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        let cleanedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !cleanedEmail.isEmpty, !cleanedPassword.isEmpty else {
+            throw AuthError.missingCredentials
         }
-        throw NSError(domain: "AuthError", code: 1, userInfo: nil)
+
+        if cleanedEmail == validEmail && cleanedPassword == validPassword {
+            return User(name: "Wolfgang Amadeus Mozart", email: cleanedEmail)
+        }
+
+        throw AuthError.invalidCredentials
     }
 }

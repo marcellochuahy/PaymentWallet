@@ -1,0 +1,26 @@
+{
+  "name": "WalletFeature",
+  "version": "0.1.0",
+  "summary": "Home screen and wallet UI for PaymentWallet.",
+  "description": "A modular SwiftUI feature with Home screen and wallet UI.",
+  "homepage": "https://github.com/marcellochuahy/PaymentWallet",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Marcello Chuahy": "marcellochuahy@icloud.com"
+  },
+  "platforms": {
+    "ios": "15.0"
+  },
+  "swift_versions": [
+    "6.0"
+  ],
+  "source": {
+    "path": "."
+  },
+  "source_files": "Sources/WalletFeature/**/*.{swift}",
+  "exclude_files": "Tests/**/*",
+  "swift_version": "6.0"
+}

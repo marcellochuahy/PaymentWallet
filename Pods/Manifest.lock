@@ -1,0 +1,16 @@
+PODS:
+  - WalletFeature (0.1.0)
+
+DEPENDENCIES:
+  - WalletFeature (from `./Modules/WalletFeature`)
+
+EXTERNAL SOURCES:
+  WalletFeature:
+    :path: "./Modules/WalletFeature"
+
+SPEC CHECKSUMS:
+  WalletFeature: ac312b339b837d2f9bcbb7c3ef3b49e91b605c71
+
+PODFILE CHECKSUM: 75e8346ba599c41eb2c2523cd363227ebdd402af
+
+COCOAPODS: 1.16.2

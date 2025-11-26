@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     private let dependencies = DependencyContainer()
+    private var coordinator: AuthCoordinator?
 
     // MARK: - Lifecycle
     
@@ -29,6 +30,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()
+        
+        // Start and retain LoginCoordinator here to ensure its lifecycle is stable
+        let coordinator = AuthCoordinator(navigationController: navigationController, dependencies: dependencies)
+        self.coordinator = coordinator
+        coordinator.start()
         
     }
 

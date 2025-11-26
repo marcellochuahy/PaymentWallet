@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5FC9D8182ED6247000EF9D63 /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 5FC9D8172ED6247000EF9D63 /* AuthFeature */; };
+		0C8B7F1F930E0A90F86B200C /* Pods_PaymentWalletTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FC7EC638C3A2A629EE3F31 /* Pods_PaymentWalletTests.framework */; };
+		5F65DCF12ED71A3F000B31B5 /* AuthFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 5F65DCF02ED71A3F000B31B5 /* AuthFeature */; };
+		7B46A8853EAB31AF61C7B166 /* Pods_PaymentWallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DD420E81694B633ECAB5B0 /* Pods_PaymentWallet.framework */; };
+		F84EEBFA1DF7842E642A4EDB /* Pods_PaymentWalletUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68AABF7AA9500B266EEA6A61 /* Pods_PaymentWalletUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,9 +31,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2289DC90070DFFE6FA6A928A /* Pods-PaymentWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentWallet.debug.xcconfig"; path = "Target Support Files/Pods-PaymentWallet/Pods-PaymentWallet.debug.xcconfig"; sourceTree = "<group>"; };
+		33641303D6A50F68110470AA /* Pods-PaymentWalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentWalletTests.debug.xcconfig"; path = "Target Support Files/Pods-PaymentWalletTests/Pods-PaymentWalletTests.debug.xcconfig"; sourceTree = "<group>"; };
+		38FC7EC638C3A2A629EE3F31 /* Pods_PaymentWalletTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaymentWalletTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59FC610B80FE76D0E7D76F23 /* Pods-PaymentWalletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentWalletUITests.debug.xcconfig"; path = "Target Support Files/Pods-PaymentWalletUITests/Pods-PaymentWalletUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5F1024C32ED5F2EB00FD2388 /* PaymentWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PaymentWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1024D92ED5F2ED00FD2388 /* PaymentWalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaymentWalletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1024E32ED5F2ED00FD2388 /* PaymentWalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PaymentWalletUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		68AABF7AA9500B266EEA6A61 /* Pods_PaymentWalletUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaymentWalletUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		81DD420E81694B633ECAB5B0 /* Pods_PaymentWallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PaymentWallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB95C77B17D1F9F12CE7ED73 /* Pods-PaymentWalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentWalletTests.release.xcconfig"; path = "Target Support Files/Pods-PaymentWalletTests/Pods-PaymentWalletTests.release.xcconfig"; sourceTree = "<group>"; };
+		BBBBFA413599C8C1E1A2D4E1 /* Pods-PaymentWalletUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentWalletUITests.release.xcconfig"; path = "Target Support Files/Pods-PaymentWalletUITests/Pods-PaymentWalletUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C7702EBBA8083FFC39CE646E /* Pods-PaymentWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PaymentWallet.release.xcconfig"; path = "Target Support Files/Pods-PaymentWallet/Pods-PaymentWallet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -69,7 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FC9D8182ED6247000EF9D63 /* AuthFeature in Frameworks */,
+				7B46A8853EAB31AF61C7B166 /* Pods_PaymentWallet.framework in Frameworks */,
+				5F65DCF12ED71A3F000B31B5 /* AuthFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8B7F1F930E0A90F86B200C /* Pods_PaymentWalletTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F84EEBFA1DF7842E642A4EDB /* Pods_PaymentWalletUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +112,8 @@
 				5F1024DC2ED5F2ED00FD2388 /* PaymentWalletTests */,
 				5F1024E62ED5F2ED00FD2388 /* PaymentWalletUITests */,
 				5F1024C42ED5F2EB00FD2388 /* Products */,
+				8F9DD842F1DBE5038704D6C4 /* Pods */,
+				D77E7CA76F618A50B64982B3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +127,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8F9DD842F1DBE5038704D6C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2289DC90070DFFE6FA6A928A /* Pods-PaymentWallet.debug.xcconfig */,
+				C7702EBBA8083FFC39CE646E /* Pods-PaymentWallet.release.xcconfig */,
+				33641303D6A50F68110470AA /* Pods-PaymentWalletTests.debug.xcconfig */,
+				BB95C77B17D1F9F12CE7ED73 /* Pods-PaymentWalletTests.release.xcconfig */,
+				59FC610B80FE76D0E7D76F23 /* Pods-PaymentWalletUITests.debug.xcconfig */,
+				BBBBFA413599C8C1E1A2D4E1 /* Pods-PaymentWalletUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D77E7CA76F618A50B64982B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				81DD420E81694B633ECAB5B0 /* Pods_PaymentWallet.framework */,
+				38FC7EC638C3A2A629EE3F31 /* Pods_PaymentWalletTests.framework */,
+				68AABF7AA9500B266EEA6A61 /* Pods_PaymentWalletUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -117,6 +157,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5F1024EC2ED5F2ED00FD2388 /* Build configuration list for PBXNativeTarget "PaymentWallet" */;
 			buildPhases = (
+				F092DEE43E27354104CBB78B /* [CP] Check Pods Manifest.lock */,
 				5F1024BF2ED5F2EB00FD2388 /* Sources */,
 				5F1024C02ED5F2EB00FD2388 /* Frameworks */,
 				5F1024C12ED5F2EB00FD2388 /* Resources */,
@@ -129,9 +170,6 @@
 				5F1024C52ED5F2EB00FD2388 /* PaymentWallet */,
 			);
 			name = PaymentWallet;
-			packageProductDependencies = (
-				5FC9D8172ED6247000EF9D63 /* AuthFeature */,
-			);
 			productName = PaymentWallet;
 			productReference = 5F1024C32ED5F2EB00FD2388 /* PaymentWallet.app */;
 			productType = "com.apple.product-type.application";
@@ -140,6 +178,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5F1024F12ED5F2ED00FD2388 /* Build configuration list for PBXNativeTarget "PaymentWalletTests" */;
 			buildPhases = (
+				F6B996C154DC7469C1D08B63 /* [CP] Check Pods Manifest.lock */,
 				5F1024D52ED5F2ED00FD2388 /* Sources */,
 				5F1024D62ED5F2ED00FD2388 /* Frameworks */,
 				5F1024D72ED5F2ED00FD2388 /* Resources */,
@@ -153,8 +192,6 @@
 				5F1024DC2ED5F2ED00FD2388 /* PaymentWalletTests */,
 			);
 			name = PaymentWalletTests;
-			packageProductDependencies = (
-			);
 			productName = PaymentWalletTests;
 			productReference = 5F1024D92ED5F2ED00FD2388 /* PaymentWalletTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -163,6 +200,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5F1024F42ED5F2ED00FD2388 /* Build configuration list for PBXNativeTarget "PaymentWalletUITests" */;
 			buildPhases = (
+				F8D07B1214A1F181346B09E0 /* [CP] Check Pods Manifest.lock */,
 				5F1024DF2ED5F2ED00FD2388 /* Sources */,
 				5F1024E02ED5F2ED00FD2388 /* Frameworks */,
 				5F1024E12ED5F2ED00FD2388 /* Resources */,
@@ -176,8 +214,6 @@
 				5F1024E62ED5F2ED00FD2388 /* PaymentWalletUITests */,
 			);
 			name = PaymentWalletUITests;
-			packageProductDependencies = (
-			);
 			productName = PaymentWalletUITests;
 			productReference = 5F1024E32ED5F2ED00FD2388 /* PaymentWalletUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -215,7 +251,7 @@
 			mainGroup = 5F1024BA2ED5F2EB00FD2388;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5FC9D8102ED61D6600EF9D63 /* XCLocalSwiftPackageReference "AuthFeature" */,
+				5F65DCEF2ED719B1000B31B5 /* XCLocalSwiftPackageReference "Modules/AuthFeature" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5F1024C42ED5F2EB00FD2388 /* Products */;
@@ -252,6 +288,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F092DEE43E27354104CBB78B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PaymentWallet-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6B996C154DC7469C1D08B63 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PaymentWalletTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8D07B1214A1F181346B09E0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PaymentWalletUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5F1024BF2ED5F2EB00FD2388 /* Sources */ = {
@@ -293,6 +398,7 @@
 /* Begin XCBuildConfiguration section */
 		5F1024ED2ED5F2ED00FD2388 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2289DC90070DFFE6FA6A928A /* Pods-PaymentWallet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -325,6 +431,7 @@
 		};
 		5F1024EE2ED5F2ED00FD2388 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7702EBBA8083FFC39CE646E /* Pods-PaymentWallet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -414,6 +521,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -471,6 +579,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -478,6 +587,7 @@
 		};
 		5F1024F22ED5F2ED00FD2388 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33641303D6A50F68110470AA /* Pods-PaymentWalletTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -500,6 +610,7 @@
 		};
 		5F1024F32ED5F2ED00FD2388 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB95C77B17D1F9F12CE7ED73 /* Pods-PaymentWalletTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -522,6 +633,7 @@
 		};
 		5F1024F52ED5F2ED00FD2388 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59FC610B80FE76D0E7D76F23 /* Pods-PaymentWalletUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -542,6 +654,7 @@
 		};
 		5F1024F62ED5F2ED00FD2388 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBBBFA413599C8C1E1A2D4E1 /* Pods-PaymentWalletUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -602,16 +715,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		5FC9D8102ED61D6600EF9D63 /* XCLocalSwiftPackageReference "AuthFeature" */ = {
+		5F65DCEF2ED719B1000B31B5 /* XCLocalSwiftPackageReference "Modules/AuthFeature" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = AuthFeature;
+			relativePath = Modules/AuthFeature;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5FC9D8172ED6247000EF9D63 /* AuthFeature */ = {
+		5F65DCF02ED71A3F000B31B5 /* AuthFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5FC9D8102ED61D6600EF9D63 /* XCLocalSwiftPackageReference "AuthFeature" */;
+			package = 5F65DCEF2ED719B1000B31B5 /* XCLocalSwiftPackageReference "Modules/AuthFeature" */;
 			productName = AuthFeature;
 		};
 /* End XCSwiftPackageProductDependency section */

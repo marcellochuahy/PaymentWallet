@@ -16,9 +16,9 @@ final class MockWalletRepository: WalletRepository {
     private let balance: Decimal = 350
 
     private let contacts: [Contact] = [
-        Contact(name: "Alice Johnson", email: "alice@example.com"),
-        Contact(name: "Bob Williams", email: "bob@example.com"),
-        Contact(name: "Carol Smith", email: "carol@example.com")
+        Contact(name: "Ludwig van Beethoven", email: "ludwig@example.com"),
+        Contact(name: "Clara Schumann", email: "clara@example.com"),
+        Contact(name: "Hildegard von Bingen", email: "hildegard@example.com")
     ]
 
     // MARK: - Methods

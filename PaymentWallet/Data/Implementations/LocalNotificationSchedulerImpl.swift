@@ -40,6 +40,12 @@ final class LocalNotificationSchedulerImpl: LocalNotificationScheduler {
         }
     }
 
+    func scheduleAuthorizationReminder() {
+        // TODO: Implement real reminder notification if needed.
+        // For now this can be a no-op or a simple debug log.
+        print("🔔 Lembrete de autorização agendado.")
+    }
+    
     // MARK: - Private Methods
 
     private func requestAuthorizationAndScheduleIfGranted(
@@ -57,8 +63,8 @@ final class LocalNotificationSchedulerImpl: LocalNotificationScheduler {
         amount: Decimal
     ) {
         let content = UNMutableNotificationContent()
-        content.title = "Transfer completed"
-        content.body = "Your transfer of \(formatCurrency(amount)) was authorized successfully."
+        content.title = "Transferência concluída"
+        content.body = "Sua transferência de \(formatCurrency(amount)) foi autorizada com sucesso."
         content.sound = .default
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
@@ -79,4 +85,5 @@ final class LocalNotificationSchedulerImpl: LocalNotificationScheduler {
         formatter.locale = Locale(identifier: "pt_BR")
         return formatter.string(from: number) ?? "\(amount)"
     }
+    
 }

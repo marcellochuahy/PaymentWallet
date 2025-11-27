@@ -9,8 +9,11 @@ import Foundation
 
 // MARK: - LocalNotificationScheduler
 
-/// Schedules simple local notifications.
-/// This is used after a successful transfer.
+/// Abstraction for scheduling local notifications in the app.
 protocol LocalNotificationScheduler {
+    /// Schedules a notification to inform the user about a successful transfer.
     func scheduleSuccessNotification(for amount: Decimal)
+
+    /// Schedules a reminder when a transfer was not authorized.
+    func scheduleAuthorizationReminder()
 }

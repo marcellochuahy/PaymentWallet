@@ -6,7 +6,7 @@ inhibit_all_warnings!
 target 'PaymentWallet' do
   
   # Main sources
-  pod 'WalletFeature', :path => './Modules/WalletFeature'
+  pod 'WalletFeature', :path => './Modules/WalletFeatureModule/WalletFeature'
   
   # Unit tests
   target 'PaymentWalletTests' do

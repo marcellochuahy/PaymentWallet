@@ -70,23 +70,23 @@ public final class TransferViewModel: ObservableObject {
 
         // Validate selection
         guard let selectedID else {
-            errorMessage = "Selecione um beneficiário."
+            errorMessage = NSLocalizedString("transfer.error.noBeneficiary", comment: "No beneficiary selected error")
             return
         }
 
         guard let selectedBeneficiary = beneficiaries.first(where: { $0.id == selectedID }) else {
-            errorMessage = "Selecione um beneficiário válido."
+            errorMessage = NSLocalizedString("transfer.error.invalidBeneficiary", comment: "Invalid beneficiary error")
             return
         }
 
         // Validate amount
         guard let amount = Self.parseAmount(from: amountTextSnapshot) else {
-            errorMessage = "Digite um valor válido."
+            errorMessage = NSLocalizedString("transfer.error.invalidAmount", comment: "Invalid amount error")
             return
         }
 
         guard amount > 0 else {
-            errorMessage = "O valor deve ser maior que zero."
+            errorMessage = NSLocalizedString("transfer.error.amountGreaterThanZero", comment: "Amount must be greater than zero")
             return
         }
 
@@ -97,9 +97,15 @@ public final class TransferViewModel: ObservableObject {
             try await performTransfer(selectedBeneficiary, amount)
             isLoading = false
             onSuccess()
-        } catch {
+        }
+        catch let error as LocalizedError {
             isLoading = false
-            errorMessage = "Ocorreu um erro inesperado. Tente novamente."
+            errorMessage = error.errorDescription
+                ?? NSLocalizedString("transfer.error.unexpected", comment: "Unexpected transfer error")
+        }
+        catch {
+            isLoading = false
+            errorMessage = NSLocalizedString("transfer.error.unexpected", comment: "Unexpected transfer error")
         }
     }
 

@@ -32,10 +32,8 @@ final class HomeCoordinator {
     // MARK: - Public Methods
 
     func start() {
-        let userInfo = WalletFeatureEntryPoint.UserInfo(
-            name: "Wolfgang Amadeus Mozart",
-            email: "user@example.com"
-        )
+        
+        let userInfo = UserInfoDataTransfer(name: "Wolfgang Amadeus Mozart", email: "user@example.com")
 
         let homeView = WalletFeatureEntryPoint.makeHomeView(
             user: userInfo,
@@ -46,7 +44,7 @@ final class HomeCoordinator {
                 dependencies.walletRepository
                     .getContacts()
                     .map { contact in
-                        WalletFeatureEntryPoint.Contact(
+                        ContactDataTransfer(
                             id: contact.id,
                             name: contact.name,
                             email: contact.email,

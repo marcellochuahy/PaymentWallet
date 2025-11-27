@@ -68,30 +68,27 @@ final class AuthCoordinatorTests: XCTestCase {
     }
 
     private struct DummyWalletRepository: WalletRepository {
-        
         func getBalance() -> Decimal { 0.0 }
         func getContacts() -> [PaymentWallet.Contact] { [] }
-        
+        func transfer(to contact: PaymentWallet.Contact, amount: Decimal) throws {
+            // No-op for tests: we don't mutate any state or throw.
+            // This dummy repository is only used where transfer side-effects are irrelevant.
+        }
     }
 
     private final class DummyAuthorizationService: AuthorizationService {
-        
         func authorize(amount: Decimal) async -> PaymentWallet.AuthorizationResult {
             fatalError("DummyAuthorizationService.authorize(amount:) should not be called in these tests.")
         }
-        
     }
 
     private final class DummyNotificationScheduler: LocalNotificationScheduler {
-        
         func scheduleSuccessNotification(for amount: Decimal) {
             // Intentionally not implemented
         }
-        
         func scheduleAuthorizationReminder() {
             // Intentionally not implemented
         }
-        
     }
 
     @MainActor

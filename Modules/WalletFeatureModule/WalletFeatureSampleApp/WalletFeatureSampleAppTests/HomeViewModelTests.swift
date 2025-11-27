@@ -14,29 +14,13 @@ final class HomeViewModelTests: XCTestCase {
     // MARK: - Helpers
 
     private func makeSUT(
-        userName: String = "Wolfgang Amadeus Mozart",
-        email: String = "user@example.com",
-        balance: Decimal = 1234.56,
-        contacts: [WalletFeatureEntryPoint.Contact] = [
-            .init(
-                name: "Ludwig van Beethoven",
-                email: "ludwig@example.com",
-                accountDescription: "Conta corrente: R$ 1.804,37"
-            ),
-            .init(
-                name: "Clara Schumann",
-                email: "clara@example.com",
-                accountDescription: "Poupança: R$ 1.841,56"
-            ),
-            .init(
-                name: "Hildegard von Bingen",
-                email: "hildegard@example.com",
-                accountDescription: "Conta do mosteiro: R$ 1.151,49"
-            )
-        ],
-        onSelect: @escaping (WalletFeatureEntryPoint.Contact) -> Void = { _ in }
+        userName: String,
+        email: String,
+        balance: Decimal,
+        contacts: [ContactDataTransfer],
+        onSelect: @escaping (ContactDataTransfer) -> Void = { _ in }
     ) -> HomeViewModel {
-        let user = WalletFeatureEntryPoint.UserInfo(name: userName, email: email)
+        let user = UserInfoDataTransfer(name: userName, email: email)
         return HomeViewModel(
             user: user,
             loadBalance: { balance },
@@ -46,9 +30,9 @@ final class HomeViewModelTests: XCTestCase {
     }
 
     private final class SelectContactSpy {
-        private(set) var received: WalletFeatureEntryPoint.Contact?
+        private(set) var received: ContactDataTransfer?
 
-        func handle(contact: WalletFeatureEntryPoint.Contact) {
+        func handle(contact: ContactDataTransfer) {
             received = contact
         }
     }
@@ -59,12 +43,12 @@ final class HomeViewModelTests: XCTestCase {
         // GIVEN
         let expectedName = "Wolfgang Amadeus Mozart"
         let expectedEmail = "user@example.com"
-
+        
         // WHEN
-        let sut = makeSUT(
-            userName: expectedName,
-            email: expectedEmail
-        )
+        let sut = makeSUT(userName: Constants.userMock.name,
+                          email: Constants.userMock.email,
+                          balance: Constants.balanceMock,
+                          contacts: Constants.contactsMock)
 
         // THEN
         XCTAssertEqual(sut.userName, expectedName)
@@ -73,28 +57,10 @@ final class HomeViewModelTests: XCTestCase {
 
     func test_loadData_updatesBalanceTextAndContacts() {
         // GIVEN
-        let contacts: [WalletFeatureEntryPoint.Contact] = [
-            .init(
-                name: "Ludwig van Beethoven",
-                email: "ludwig@example.com",
-                accountDescription: "Conta corrente: R$ 1.804,37"
-            ),
-            .init(
-                name: "Clara Schumann",
-                email: "clara@example.com",
-                accountDescription: "Poupança: R$ 1.841,56"
-            ),
-            .init(
-                name: "Hildegard von Bingen",
-                email: "hildegard@example.com",
-                accountDescription: "Conta do mosteiro: R$ 1.151,49"
-            )
-        ]
-
-        let sut = makeSUT(
-            balance: 999.99,
-            contacts: contacts
-        )
+        let sut = makeSUT(userName: Constants.userMock.name,
+                          email: Constants.userMock.email,
+                          balance: Constants.balanceMock,
+                          contacts: Constants.contactsMock)
 
         // Pre-conditions
         XCTAssertEqual(sut.balanceText, "R$ 0,00")
@@ -117,10 +83,10 @@ final class HomeViewModelTests: XCTestCase {
 
     func test_loadData_formatsBalanceUsingPtBRLocale() {
         // GIVEN
-        let sut = makeSUT(
-            balance: 350,
-            contacts: []
-        )
+        let sut = makeSUT(userName: Constants.userMock.name,
+                          email: Constants.userMock.email,
+                          balance: 350,
+                          contacts: [])
 
         // Pre-condition
         XCTAssertEqual(sut.balanceText, "R$ 0,00")
@@ -146,26 +112,12 @@ final class HomeViewModelTests: XCTestCase {
 
     func test_didTapContact_forwardsContactToOnSelectContact() {
         // GIVEN
-        let contacts: [WalletFeatureEntryPoint.Contact] = [
-            .init(
-                name: "Ludwig van Beethoven",
-                email: "ludwig@example.com",
-                accountDescription: "Conta corrente: R$ 1.804,37"
-            ),
-            .init(
-                name: "Clara Schumann",
-                email: "clara@example.com",
-                accountDescription: "Poupança: R$ 1.841,56"
-            ),
-            .init(
-                name: "Hildegard von Bingen",
-                email: "hildegard@example.com",
-                accountDescription: "Conta do mosteiro: R$ 1.151,49"
-            )
-        ]
-
         let spy = SelectContactSpy()
+        let contacts = Constants.contactsMock
         let sut = makeSUT(
+            userName: Constants.userMock.name,
+            email: Constants.userMock.email,
+            balance: 0,
             contacts: contacts,
             onSelect: spy.handle(contact:)
         )

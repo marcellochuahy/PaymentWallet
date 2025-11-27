@@ -10,6 +10,13 @@ import XCTest
 
 @MainActor
 final class LoginViewModelTests: XCTestCase {
+    
+    enum AuthErrorKey {
+        static let emptyFields        = "auth.error.emptyFields"
+        static let invalidCredentials = "auth.error.invalidCredentials"
+        static let noInternet         = "auth.error.noInternet"
+        static let unexpected         = "auth.error.unexpected"
+    }
 
     // MARK: - Tests
 
@@ -30,7 +37,7 @@ final class LoginViewModelTests: XCTestCase {
         }
 
         // then
-        XCTAssertEqual(sut.errorMessage, "Please fill in all fields.")
+        XCTAssertEqual(sut.errorMessage, AuthErrorKey.emptyFields)
         XCTAssertFalse(sut.isLoading)
         XCTAssertFalse(performLoginCalled)
         XCTAssertFalse(onSuccessCalled)
@@ -109,7 +116,7 @@ final class LoginViewModelTests: XCTestCase {
         }
 
         // then
-        XCTAssertEqual(sut.errorMessage, "Ocorreu um erro inesperado.")
+        XCTAssertEqual(sut.errorMessage, AuthErrorKey.unexpected)
         XCTAssertFalse(sut.isLoading)
         XCTAssertFalse(onSuccessCalled)
     }

@@ -19,21 +19,21 @@ public final class HomeViewModel: ObservableObject {
     @Published public private(set) var userName: String
     @Published public private(set) var userEmail: String
     @Published public private(set) var balanceText: String = "R$ 0,00"
-    @Published public private(set) var contacts: [WalletFeatureEntryPoint.Contact] = []
+    @Published public private(set) var contacts: [ContactDataTransfer] = []
 
     // MARK: - Dependencies
 
     private let loadBalance: () -> Decimal
-    private let loadContactsClosure: () -> [WalletFeatureEntryPoint.Contact]
-    private let onSelectContact: (WalletFeatureEntryPoint.Contact) -> Void
+    private let loadContactsClosure: () -> [ContactDataTransfer]
+    private let onSelectContact: (ContactDataTransfer) -> Void
 
     // MARK: - Initializers
 
     public init(
-        user: WalletFeatureEntryPoint.UserInfo,
+        user: UserInfoDataTransfer,
         loadBalance: @escaping () -> Decimal,
-        loadContacts: @escaping () -> [WalletFeatureEntryPoint.Contact],
-        onSelectContact: @escaping (WalletFeatureEntryPoint.Contact) -> Void
+        loadContacts: @escaping () -> [ContactDataTransfer],
+        onSelectContact: @escaping (ContactDataTransfer) -> Void
     ) {
         self.userName = user.name
         self.userEmail = user.email
@@ -50,7 +50,7 @@ public final class HomeViewModel: ObservableObject {
         contacts = loadContactsClosure()
     }
 
-    public func didTap(contact: WalletFeatureEntryPoint.Contact) {
+    public func didTap(contact: ContactDataTransfer) {
         onSelectContact(contact)
     }
 

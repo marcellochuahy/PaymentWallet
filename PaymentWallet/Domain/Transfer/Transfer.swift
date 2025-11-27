@@ -8,6 +8,7 @@
 import Foundation
 
 struct Transfer {
+    
     let payer: User
     let payee: Contact
     let amount: Decimal
@@ -17,4 +18,5 @@ struct Transfer {
         self.payee = payee
         self.amount = amount
     }
+    
 }

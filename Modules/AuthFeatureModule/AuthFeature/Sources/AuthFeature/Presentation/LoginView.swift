@@ -31,25 +31,36 @@ public struct LoginView: View {
     public var body: some View {
         VStack(spacing: 24) {
 
-            Text("Login")
+            // Title
+            Text(NSLocalizedString("auth.title", comment: "Login title"))
                 .font(.largeTitle.bold())
 
-            TextField("E-mail", text: $viewModel.email)
-                .textFieldStyle(.roundedBorder)
-                .keyboardType(.emailAddress)
-                .textContentType(.emailAddress)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled(true)
+            // Email field
+            TextField(
+                NSLocalizedString("auth.emailPlaceholder", comment: "E-mail field placeholder"),
+                text: $viewModel.email
+            )
+            .textFieldStyle(.roundedBorder)
+            .keyboardType(.emailAddress)
+            .textContentType(.emailAddress)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled(true)
 
-            SecureField("Password", text: $viewModel.password)
-                .textFieldStyle(.roundedBorder)
-                .textContentType(.password)
+            // Password field
+            SecureField(
+                NSLocalizedString("auth.passwordPlaceholder", comment: "Password field placeholder"),
+                text: $viewModel.password
+            )
+            .textFieldStyle(.roundedBorder)
+            .textContentType(.password)
 
+            // Loading indicator
             if viewModel.isLoading {
                 ProgressView()
             }
 
-            Button("Enter") {
+            // Login button
+            Button(NSLocalizedString("auth.enterButton", comment: "Login button")) {
                 Task {
                     await viewModel.login(onSuccess: onLoginSuccess)
                 }
@@ -57,6 +68,7 @@ public struct LoginView: View {
             .buttonStyle(.borderedProminent)
             .padding(.top)
 
+            // Error label
             if let error = viewModel.errorMessage {
                 Text(error)
                     .foregroundColor(.red)

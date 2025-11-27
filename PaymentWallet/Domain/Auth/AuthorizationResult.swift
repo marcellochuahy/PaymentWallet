@@ -8,6 +8,7 @@
 import Foundation
 
 struct AuthorizationResult: Equatable {
+    
     let isAuthorized: Bool
     let reason: String?
 
@@ -15,4 +16,5 @@ struct AuthorizationResult: Equatable {
         self.isAuthorized = isAuthorized
         self.reason = reason
     }
+    
 }

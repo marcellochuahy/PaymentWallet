@@ -15,17 +15,13 @@ final class HomeViewTests: XCTestCase {
     // MARK: - Helpers
 
     private func makeSUT(
-        userName: String = "Wolfgang Amadeus Mozart",
-        email: String = "user@example.com",
-        balance: Decimal = 123.45,
-        contacts: [WalletFeatureEntryPoint.Contact] = [
-            .init(name: "Ludwig van Beethoven", email: "ludwig@example.com", accountDescription: "Conta corrente: R$ 1.804,37"),
-            .init(name: "Clara Schumann", email: "clara@example.com", accountDescription: "Poupança: R$ 1.841,56"),
-            .init(name: "Hildegard von Bingen", email: "hildegard@example.com", accountDescription: "Conta do mosteiro: R$ 1.151,49")
-        ],
-        onSelectContact: @escaping (WalletFeatureEntryPoint.Contact) -> Void = { _ in }
+        userName: String,
+        email: String,
+        balance: Decimal,
+        contacts: [ContactDataTransfer],
+        onSelectContact: @escaping (ContactDataTransfer) -> Void = { _ in }
     ) -> HomeView {
-        let user = WalletFeatureEntryPoint.UserInfo(
+        let user = UserInfoDataTransfer(
             name: userName,
             email: email
         )
@@ -44,10 +40,10 @@ final class HomeViewTests: XCTestCase {
 
     func testHomeView_showsUserSectionWithNameAndEmail() throws {
         // GIVEN
-        let sut = makeSUT(
-            userName: "Johann Sebastian Bach",
-            email: "johann@illbebach.com"
-        )
+        let sut = makeSUT(userName: "Johann Sebastian Bach",
+                          email: "johann@illbebach.com",
+                          balance: Constants.balanceMock,
+                          contacts: Constants.contactsMock)
 
         // WHEN – força o onAppear (carrega dados via viewModel.loadData)
         try sut.inspect().navigationView().callOnAppear()
@@ -65,13 +61,10 @@ final class HomeViewTests: XCTestCase {
 
     func testHomeView_showsContactsList() throws {
         // GIVEN
-        let contacts: [WalletFeatureEntryPoint.Contact] = [
-            .init(name: "Ludwig van Beethoven", email: "ludwig@example.com", accountDescription: "Conta corrente: R$ 1.804,37"),
-            .init(name: "Clara Schumann", email: "clara@example.com", accountDescription: "Poupança: R$ 1.841,56"),
-            .init(name: "Hildegard von Bingen", email: "hildegard@example.com", accountDescription: "Conta do mosteiro: R$ 1.151,49")
-        ]
-
-        let sut = makeSUT(contacts: contacts)
+        let sut = makeSUT(userName: Constants.userMock.name,
+                          email: Constants.userMock.email,
+                          balance: Constants.balanceMock,
+                          contacts: Constants.contactsMock)
 
         // WHEN
         try sut
@@ -97,14 +90,13 @@ final class HomeViewTests: XCTestCase {
 
     func testHomeView_tappingContact_callsOnSelectContact() throws {
         // GIVEN
-        var tappedContact: WalletFeatureEntryPoint.Contact?
-        let contact = WalletFeatureEntryPoint.Contact(name: "Ludwig van Beethoven", email: "ludwig@example.com", accountDescription: "Conta corrente: R$ 1.804,37")
-
-        let sut = makeSUT(
-            contacts: [contact],
-            onSelectContact: { tappedContact = $0 }
-        )
-
+        var tappedContact: ContactDataTransfer?
+        let contact = Constants.contact1Mock
+        let sut = makeSUT(userName: Constants.userMock.name,
+                          email: Constants.userMock.email,
+                          balance: Constants.balanceMock,
+                          contacts: [contact],
+                          onSelectContact: { tappedContact = $0 })
         try sut
             .inspect()
             .navigationView()
@@ -122,7 +114,10 @@ final class HomeViewTests: XCTestCase {
 
     func testHomeView_showsEmptyStateWhenNoContacts() throws {
         // GIVEN
-        let sut = makeSUT(contacts: [])
+        let sut = makeSUT(userName: Constants.userMock.name,
+                          email: Constants.userMock.email,
+                          balance: Constants.balanceMock,
+                          contacts: [])
 
         // WHEN – dispara o onAppear para carregar os dados
         try sut.inspect()

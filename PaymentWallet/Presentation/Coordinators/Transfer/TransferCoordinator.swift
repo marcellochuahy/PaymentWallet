@@ -12,7 +12,10 @@ import TransferFeature
 
 // MARK: - TransferCoordinator
 
-/// Coordinates the money transfer flow using the TransferFeature module.
+/// Coordinator responsible for driving the transfer flow:
+/// - builds the TransferFeature SwiftUI view;
+/// - connects it to the domain (WalletRepository + AuthorizationService);
+/// - schedules local notifications on success.
 final class TransferCoordinator {
 
     // MARK: - Properties
@@ -32,86 +35,86 @@ final class TransferCoordinator {
 
     // MARK: - Public API
 
-    /// Starts the Transfer flow by pushing the SwiftUI TransferView
-    /// wrapped in a UIHostingController.
+    /// Starts the transfer flow using the given contact as the initial selection.
     ///
-    /// - Parameter preselectedContact:
-    ///   Optional contact coming from the Home screen. If provided,
-    ///   it will be used to preselect the beneficiary in the transfer form.
-    @MainActor
-    func start(preselectedContact: WalletFeatureEntryPoint.Contact? = nil) {
-        
-        // 1) Load contacts from the WalletRepository and map to Beneficiary DTOs.
-        let contacts = dependencies.walletRepository.getContacts()
+    /// - Parameter preselectedContact: Contact selected in Home (WalletFeature DTO).
+    func start(preselectedContact: ContactDataTransfer) {
+ 
+        // 1) Load domain contacts from the repository.
+        let domainContacts = dependencies.walletRepository.getContacts()
 
-        let beneficiaries: [TransferFeatureEntryPoint.Beneficiary] = contacts.map { contact in
+        // 2) Map domain contacts into TransferFeature DTOs (Beneficiary).
+        let beneficiaries: [TransferFeatureEntryPoint.Beneficiary] = domainContacts.map {
             TransferFeatureEntryPoint.Beneficiary(
-                id: contact.id,
-                name: contact.name,
-                accountDescription: contact.accountDescription
+                id: $0.id,
+                name: $0.name,
+                accountDescription: $0.accountDescription
             )
         }
 
-        let preselectedID = preselectedContact?.id
+        // 3) Pre-select the beneficiary that matches the tapped contact.
+        let preselectedID = preselectedContact.id
 
-        // 2) Build the SwiftUI view using the feature entry point.
         let transferView = TransferFeatureEntryPoint.makeTransferView(
             beneficiaries: beneficiaries,
             preselectedBeneficiaryID: preselectedID,
             performTransfer: { [weak self] beneficiary, amount in
                 guard let self else { return }
-                try await self.performTransfer(beneficiary: beneficiary, amount: amount)
+                try await self.performTransfer(to: beneficiary, amount: amount)
             },
             onTransferSuccess: { [weak self] in
-                self?.handleTransferSuccess()
+                print("4️⃣ [TransferCoordinator] transfer completed successfully")
+                // For now, we simply pop back to Home.
+                self?.navigationController.popViewController(animated: true)
             }
         )
 
-        // 3) Wrap in UIHostingController and push into the navigation stack.
         let hosting = UIHostingController(rootView: transferView)
-        hosting.title = "Transfer" // podemos traduzir depois via Localizable
+        hosting.title = NSLocalizedString("transfer.title", comment: "Transfer screen title")
 
         navigationController.pushViewController(hosting, animated: true)
     }
 
     // MARK: - Private helpers
 
-    /// Bridges the feature's `performTransfer` dependency to the SuperApp layer.
-    /// Here we can:
-    /// - Call the AuthorizationService to approve the transfer.
-    /// - Optionally call the WalletRepository to persist / sync the transfer.
-    /// - Schedule local notifications.
+    /// Orchestrates the transfer:
+    /// - asks the AuthorizationService to authorize the operation;
+    /// - maps the beneficiary DTO back to the domain Contact;
+    /// - calls the WalletRepository to perform the transfer;
+    /// - schedules a local notification on success.
     @MainActor
-    private func performTransfer(
-        beneficiary: TransferFeatureEntryPoint.Beneficiary,
+    func performTransfer(
+        to beneficiary: TransferFeatureEntryPoint.Beneficiary,
         amount: Decimal
     ) async throws {
 
-        // 1) Ask for authorization.
-        let result = await dependencies.authorizationService.authorize(amount: amount)
+        // 1) Ask the mock AuthorizationService if this amount is allowed.
+        let authResult = await dependencies.authorizationService.authorize(amount: amount)
 
-        guard result.isAuthorized else {
-            // If not authorized, schedule a reminder and throw
-            dependencies.notificationScheduler.scheduleAuthorizationReminder()
-            throw TransferError.notAuthorized(reason: result.reason)
+        guard authResult.isAuthorized else {
+            // Map denial to a domain error that the UI can present as a friendly message.
+            throw TransferError.notAuthorized(reason: authResult.reason)
         }
 
-        // 2) (Optional) Here we could register/log the transfer using walletRepository
-        // For the coding challenge we will just schedule a success notification.
+        // 2) Resolve the domain Contact that matches the chosen beneficiary.
+        guard let contact = dependencies.walletRepository
+            .getContacts()
+            .first(where: { $0.id == beneficiary.id }) else {
+            throw TransferError.unknown
+        }
+
+        // 3) Perform the transfer in the repository.
+        do {
+            try dependencies.walletRepository.transfer(to: contact, amount: amount)
+        } catch let transferError as TransferError {
+            // If the repository already throws TransferError, just propagate it.
+            throw transferError
+        } catch {
+            // Any other error is mapped to a generic domain error.
+            throw TransferError.unknown
+        }
+
+        // 4) Schedule local notification for the authorized transfer.
         dependencies.notificationScheduler.scheduleSuccessNotification(for: amount)
     }
-
-    /// Called when the Transfer feature reports a successful operation.
-    @MainActor
-    private func handleTransferSuccess() {
-        // For now, simply pop back to the previous screen.
-        navigationController.popViewController(animated: true)
-    }
-}
-
-// MARK: - Internal Error Type
-
-/// Local error type used by the coordinator to represent domain-level failures.
-enum TransferError: Error, Equatable {
-    case notAuthorized(reason: String?)
 }

@@ -16,11 +16,22 @@ public enum AuthError: Error, LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .missingCredentials:
-            return "Please fill in all fields."
+            return NSLocalizedString(
+                "auth.error.emptyFields",
+                comment: "Error when login fields are missing"
+            )
+
         case .invalidCredentials:
-            return "Invalid credentials."
+            return NSLocalizedString(
+                "auth.error.invalidCredentials",
+                comment: "Error when credentials are invalid"
+            )
+
         case .unknown:
-            return "An unknown error occurred."
+            return NSLocalizedString(
+                "auth.error.unexpected",
+                comment: "Unexpected authentication error"
+            )
         }
     }
 }

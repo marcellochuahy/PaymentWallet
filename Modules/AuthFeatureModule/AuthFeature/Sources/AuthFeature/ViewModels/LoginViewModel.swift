@@ -36,8 +36,12 @@ public final class LoginViewModel: ObservableObject {
         let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
         let trimmedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
 
+        // Validate empty fields
         guard !trimmedEmail.isEmpty, !trimmedPassword.isEmpty else {
-            errorMessage = "Please fill in all fields."
+            errorMessage = NSLocalizedString(
+                "auth.error.emptyFields",
+                comment: "Error shown when email or password is empty"
+            )
             return
         }
 
@@ -55,12 +59,18 @@ public final class LoginViewModel: ObservableObject {
         }
         catch {
             isLoading = false
+
             if (error as? URLError)?.code == .notConnectedToInternet {
-                errorMessage = "Sem conexão com a Internet."
+                errorMessage = NSLocalizedString(
+                    "auth.error.noInternet",
+                    comment: "No internet connection error"
+                )
             } else {
-                errorMessage = "Ocorreu um erro inesperado."
+                errorMessage = NSLocalizedString(
+                    "auth.error.unexpected",
+                    comment: "Unexpected login failure"
+                )
             }
         }
     }
 }
-

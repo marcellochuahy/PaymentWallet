@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F6BB9682ED854AF007B6684 /* TransferFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 5F6BB9672ED854AF007B6684 /* TransferFeature */; };
-		5FBD3C0E2ED7A4BA00FD398A /* TransferFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 5FBD3C0D2ED7A4BA00FD398A /* TransferFeature */; };
+		5F4B1E0C2ED8DCD300159D86 /* TransferFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 5F4B1E0B2ED8DCD300159D86 /* TransferFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F6BB9682ED854AF007B6684 /* TransferFeature in Frameworks */,
-				5FBD3C0E2ED7A4BA00FD398A /* TransferFeature in Frameworks */,
+				5F4B1E0C2ED8DCD300159D86 /* TransferFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,8 +95,7 @@
 			);
 			name = TransferFeatureSampleApp;
 			packageProductDependencies = (
-				5FBD3C0D2ED7A4BA00FD398A /* TransferFeature */,
-				5F6BB9672ED854AF007B6684 /* TransferFeature */,
+				5F4B1E0B2ED8DCD300159D86 /* TransferFeature */,
 			);
 			productName = TransferFeatureSampleApp;
 			productReference = 5FBD3BC62ED79AF800FD398A /* TransferFeatureSampleApp.app */;
@@ -156,7 +153,7 @@
 			mainGroup = 5FBD3BBD2ED79AF800FD398A;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5F6BB9662ED854AF007B6684 /* XCLocalSwiftPackageReference "../TransferFeature" */,
+				5F4B1E0A2ED8DCD300159D86 /* XCLocalSwiftPackageReference "../TransferFeature" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5FBD3BC72ED79AF800FD398A /* Products */;
@@ -474,18 +471,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		5F6BB9662ED854AF007B6684 /* XCLocalSwiftPackageReference "../TransferFeature" */ = {
+		5F4B1E0A2ED8DCD300159D86 /* XCLocalSwiftPackageReference "../TransferFeature" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../TransferFeature;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5F6BB9672ED854AF007B6684 /* TransferFeature */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TransferFeature;
-		};
-		5FBD3C0D2ED7A4BA00FD398A /* TransferFeature */ = {
+		5F4B1E0B2ED8DCD300159D86 /* TransferFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = TransferFeature;
 		};

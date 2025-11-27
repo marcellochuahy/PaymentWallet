@@ -15,17 +15,18 @@ final class TransferViewModelTests: XCTestCase {
 
     /// Actor spy that records calls to performTransfer in a concurrency-safe way.
     actor TransferSpy {
-        private(set) var calls: [(beneficiary: TransferFeatureEntryPoint.Beneficiary,
-                                  amount: Decimal)] = []
+        private(set) var calls: [(beneficiary: TransferFeatureEntryPoint.Beneficiary, amount: Decimal)] = []
+        private var result: Result<Void, Error> = .success(())
 
-        var result: Result<Void, Error> = .success(())
-
-        func record(_ beneficiary: TransferFeatureEntryPoint.Beneficiary,
-                    _ amount: Decimal) throws {
+        func record(_ beneficiary: TransferFeatureEntryPoint.Beneficiary, _ amount: Decimal) throws {
             calls.append((beneficiary, amount))
             if case let .failure(error) = result {
                 throw error
             }
+        }
+
+        func setResult(_ newResult: Result<Void, Error>) {
+            result = newResult
         }
     }
 
@@ -61,6 +62,14 @@ final class TransferViewModelTests: XCTestCase {
         return (viewModel, spy)
     }
 
+    enum ErrorKey {
+        static let amountGreaterThanZero = "transfer.error.amountGreaterThanZero"
+        static let invalidAmount         = "transfer.error.invalidAmount"
+        static let invalidBeneficiary    = "transfer.error.invalidBeneficiary"
+        static let noBeneficiary         = "transfer.error.noBeneficiary"
+        static let unexpected            = "transfer.error.unexpected"
+    }
+
     // MARK: - Tests
 
     func test_submitTransfer_whenNoBeneficiarySelected_setsErrorAndDoesNotCallTransfer() async {
@@ -75,7 +84,7 @@ final class TransferViewModelTests: XCTestCase {
         // THEN
         XCTAssertEqual(
             sut.errorMessage,
-            "Selecione um beneficiário."
+            ErrorKey.noBeneficiary
         )
 
         let calls = await spy.calls
@@ -97,7 +106,7 @@ final class TransferViewModelTests: XCTestCase {
         // THEN
         XCTAssertEqual(
             sut.errorMessage,
-            "Digite um valor válido."
+            ErrorKey.invalidAmount
         )
 
         let calls = await spy.calls
@@ -119,7 +128,7 @@ final class TransferViewModelTests: XCTestCase {
         // THEN
         XCTAssertEqual(
             sut.errorMessage,
-            "O valor deve ser maior que zero."
+            ErrorKey.amountGreaterThanZero
         )
 
         let calls = await spy.calls
@@ -171,4 +180,56 @@ final class TransferViewModelTests: XCTestCase {
         let value = TransferViewModel.parseAmount(from: "   ")
         XCTAssertNil(value)
     }
+
+    func test_submitTransfer_whenPerformTransferThrowsLocalizedError_setsErrorMessageAndDoesNotCallOnSuccess() async {
+
+        struct DummyTransferError: LocalizedError, Equatable {
+            let message: String
+            var errorDescription: String? { message }
+        }
+
+        // GIVEN
+        let beneficiary = TransferFeatureEntryPoint.Beneficiary(
+            id: UUID(),
+            name: "Ludwig van Beethoven",
+            accountDescription: "Conta corrente"
+        )
+
+        let beneficiaries = [beneficiary]
+        let expectedError = DummyTransferError(message: "Saldo insuficiente.")
+        let expectedAmount: Decimal = 100
+
+        let (sut, spy) = makeSUT(beneficiaries: beneficiaries)
+
+        // garante que estamos usando exatamente esse beneficiário
+        sut.selectedBeneficiaryID = beneficiary.id
+        sut.amountText = "100"
+
+        await spy.setResult(.failure(expectedError))
+
+        var onSuccessCalled = false
+
+        // WHEN
+        await sut.submitTransfer {
+            onSuccessCalled = true
+        }
+
+        // THEN – performTransfer foi chamado com os dados corretos
+        let calls = await spy.calls
+        XCTAssertEqual(calls.count, 1, "performTransfer should be called exactly once.")
+        let firstCall = calls.first.map { $0 }
+        XCTAssertEqual(firstCall?.beneficiary.id, beneficiary.id)
+        XCTAssertEqual(firstCall?.amount, expectedAmount)
+
+        // erro veio do LocalizedError
+        XCTAssertEqual(
+            sut.errorMessage,
+            expectedError.errorDescription,
+            "errorMessage should use the errorDescription from LocalizedError."
+        )
+
+        XCTAssertFalse(onSuccessCalled, "onSuccess should not be called when performTransfer throws.")
+        XCTAssertFalse(sut.isLoading, "isLoading should be false after submitTransfer finishes.")
+    }
 }
+

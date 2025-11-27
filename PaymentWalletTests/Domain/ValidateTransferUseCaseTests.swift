@@ -21,7 +21,7 @@ final class ValidateTransferUseCaseTests: XCTestCase {
         super.setUp()
         sut = ValidateTransferUseCase()
         payer = User(name: "Payer User", email: "payer@example.com")
-        payee = Contact(name: "Payee User", email: "payee@example.com")
+        payee = Contact(name: "Payee User", email: "payee@example.com", accountDescription: "")
         currentBalance = Decimal(100)
     }
 
@@ -94,7 +94,7 @@ final class ValidateTransferUseCaseTests: XCTestCase {
         // given
         let sameEmail = "user@example.com"
         payer = User(name: "User", email: sameEmail)
-        payee = Contact(name: "User Contact", email: sameEmail)
+        payee = Contact(name: "User Contact", email: sameEmail, accountDescription: "")
         let amount = Decimal(10)
 
         // when / then

@@ -8,6 +8,7 @@
 import Foundation
 
 struct User: Identifiable, Equatable {
+    
     let id: UUID
     let name: String
     let email: String
@@ -17,4 +18,5 @@ struct User: Identifiable, Equatable {
         self.name = name
         self.email = email
     }
+    
 }

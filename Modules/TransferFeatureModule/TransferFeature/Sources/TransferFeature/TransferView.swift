@@ -31,13 +31,20 @@ public struct TransferView: View {
     public var body: some View {
         NavigationView {
             Form {
+
                 // MARK: Beneficiary
-                Section("Beneficiário") {
+                Section(
+                    NSLocalizedString("transfer.section.beneficiary", comment: "Beneficiary section title")
+                ) {
                     if viewModel.beneficiaries.isEmpty {
-                        Text("Nenhum beneficiário cadastrado.")
+                        Text(NSLocalizedString("transfer.noBeneficiaries", comment: "No beneficiaries available"))
                             .foregroundStyle(.secondary)
+
                     } else {
-                        Picker("Select", selection: $viewModel.selectedBeneficiaryID) {
+                        Picker(
+                            NSLocalizedString("transfer.selectBeneficiary", comment: "Select beneficiary label"),
+                            selection: $viewModel.selectedBeneficiaryID
+                        ) {
                             ForEach(viewModel.beneficiaries) { beneficiary in
                                 VStack(alignment: .leading) {
                                     Text(beneficiary.name)
@@ -52,9 +59,14 @@ public struct TransferView: View {
                 }
 
                 // MARK: Amount
-                Section("Valor a transferir") {
-                    TextField("0,00", text: $viewModel.amountText)
-                        .keyboardType(.decimalPad)
+                Section(
+                    NSLocalizedString("transfer.section.amount", comment: "Amount section title")
+                ) {
+                    TextField(
+                        NSLocalizedString("transfer.placeholder.amount", comment: "Amount placeholder"),
+                        text: $viewModel.amountText
+                    )
+                    .keyboardType(.decimalPad)
                 }
 
                 // MARK: Error
@@ -76,14 +88,18 @@ public struct TransferView: View {
                         if viewModel.isLoading {
                             ProgressView()
                         } else {
-                            Text("Transferir")
-                                .font(.headline)
+                            Text(
+                                NSLocalizedString("transfer.button.submit", comment: "Submit transfer button")
+                            )
+                            .font(.headline)
                         }
                     }
                     .disabled(viewModel.isLoading)
                 }
             }
-            .navigationTitle("Transferir")
+            .navigationTitle(
+                NSLocalizedString("transfer.title", comment: "Transfer screen title")
+            )
         }
     }
 }

@@ -1,5 +1,14 @@
 # PaymentWallet  
 
+
+
+<img width="1904" height="881" alt="PaymentWalletImageCover" src="https://github.com/user-attachments/assets/3748572c-a041-447a-acbe-9c73b2ce4590" />
+
+
+
+
+
+
 **Aplicativo Mobile — Carteira de Pagamentos**
 
 O **PaymentWallet** é um aplicativo mobile simples de **carteira digital**, no qual o usuário pode:

@@ -1,10 +1,16 @@
 # PaymentWallet  
 
-<img width="1904" height="881" alt="PaymentWalletImageCover" src="https://github.com/user-attachments/assets/3748572c-a041-447a-acbe-9c73b2ce4590" />
+<img width="1477" height="830" alt="Captura de Tela 2025-11-28 às 15 31 49" src="https://github.com/user-attachments/assets/972e189b-93fe-4a37-90ff-7deba1cd6a72" />
+
+<img width="200" alt="Captura de Tela 2025-11-28 às 15 32 01" src="https://github.com/user-attachments/assets/4412a6d2-449e-4b28-b7a7-38a38be9303e" />
+
+<img width="200" alt="Captura de Tela 2025-11-28 às 15 32 15" src="https://github.com/user-attachments/assets/c6a3dc0c-c493-41f6-b059-9c7f9910f26a" />
+
+<img width="200" alt="Captura de Tela 2025-11-28 às 15 32 28" src="https://github.com/user-attachments/assets/c23afcf0-19ac-4eda-9d2b-0c65b720dba3" />
 
 **Aplicativo Mobile — Carteira de Pagamentos**
 
-O **PaymentWallet** é um aplicativo mobile simples de **carteira digital**, no qual o usuário pode:
+O **PaymentWallet** é um aplicativo mobile simples de **carteira digital**, com suporte a internacionalização, A11Y e modo escuro, no qual o usuário pode:
 
 - 🔐 **Fazer login**
 - 💰 **Visualizar seu saldo**
@@ -316,7 +322,6 @@ import ViewInspector
 --- 
 
 ## Organização modular
-
 
 PaymentWallet (UIKit SuperApp)
 │

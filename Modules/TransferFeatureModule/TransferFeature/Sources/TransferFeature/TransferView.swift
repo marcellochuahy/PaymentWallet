@@ -39,7 +39,6 @@ public struct TransferView: View {
                     if viewModel.beneficiaries.isEmpty {
                         Text(NSLocalizedString("transfer.noBeneficiaries", comment: "No beneficiaries available"))
                             .foregroundStyle(.secondary)
-
                     } else {
                         Picker(
                             NSLocalizedString("transfer.selectBeneficiary", comment: "Select beneficiary label"),
@@ -55,6 +54,7 @@ public struct TransferView: View {
                                 .tag(beneficiary.id as TransferFeatureEntryPoint.Beneficiary.ID?)
                             }
                         }
+                        .accessibilityHint("Escolha o destinatário da transferência.")
                     }
                 }
 
@@ -75,6 +75,8 @@ public struct TransferView: View {
                         Text(error)
                             .foregroundStyle(Color.red)
                             .font(.callout)
+                            .accessibilityLabel(Text(error))
+                            .accessibilityHint(LocalizedStringKey("transfer.a11y.errorMessage.hint"))
                     }
                 }
 
@@ -87,6 +89,7 @@ public struct TransferView: View {
                     } label: {
                         if viewModel.isLoading {
                             ProgressView()
+                                .accessibilityLabel(LocalizedStringKey("transfer.a11y.loading"))
                         } else {
                             Text(
                                 NSLocalizedString("transfer.button.submit", comment: "Submit transfer button")
@@ -95,11 +98,13 @@ public struct TransferView: View {
                         }
                     }
                     .disabled(viewModel.isLoading)
+                    .accessibilityHint(LocalizedStringKey("transfer.a11y.submitButton.hint"))
                 }
             }
             .navigationTitle(
                 NSLocalizedString("transfer.title", comment: "Transfer screen title")
             )
+            .accessibilityElement(children: .contain)
         }
     }
 }

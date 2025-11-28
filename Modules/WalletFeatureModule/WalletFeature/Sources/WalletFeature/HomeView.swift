@@ -41,6 +41,7 @@ public struct HomeView: View {
                     if viewModel.contacts.isEmpty {
                         Text(LocalizedStringKey("home.contacts.empty"))
                             .foregroundStyle(.secondary)
+                            .accessibilityHint(LocalizedStringKey("home.a11y.contacts.empty.hint"))
                     } else {
                         ForEach(viewModel.contacts) { contact in
                             Button(action: {
@@ -48,6 +49,7 @@ public struct HomeView: View {
                             }) {
                                 Text(contact.name)
                             }
+                            .accessibilityHint(LocalizedStringKey("home.a11y.contactButton.hint"))
                         }
                     }
                 }

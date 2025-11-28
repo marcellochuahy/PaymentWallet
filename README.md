@@ -1,13 +1,6 @@
 # PaymentWallet  
 
-
-
 <img width="1904" height="881" alt="PaymentWalletImageCover" src="https://github.com/user-attachments/assets/3748572c-a041-447a-acbe-9c73b2ce4590" />
-
-
-
-
-
 
 **Aplicativo Mobile — Carteira de Pagamentos**
 
@@ -530,6 +523,74 @@ Isso permite validar:
  • Auto-login
  • Geração de token
  • Eventos de fluxo
+ 
+## ♿️ Acessibilidade
+
+O **PaymentWallet** foi implementado já com algumas preocupações de acessibilidade, pensando em cenários reais de uso com **VoiceOver**, **Dynamic Type** e **modo escuro**.
+
+### VoiceOver e elementos interativos
+
+- **HomeView**
+  - A lista de contatos é composta por `Button`s, permitindo que o VoiceOver anuncie cada contato como elemento interativo.
+  - Quando não há contatos, o estado vazio exibe uma mensagem com **hint** de acessibilidade:
+    - Chave: `home.a11y.contacts.empty.hint`
+    - PT-BR: “Nenhum contato disponível para transferência.”
+    - EN: “No contacts available for transfer.”
+  - Cada contato possui um **hint** específico:
+    - Chave: `home.a11y.contactButton.hint`
+    - PT-BR: “Inicia uma transferência para este contato.”
+    - EN: “Starts a transfer to this contact.”
+
+- **TransferView**
+  - O `ProgressView` exibido durante o envio da transferência recebe um `accessibilityLabel` específico:
+    - Chave: `transfer.a11y.loading`
+    - PT-BR: “Processando transferência”
+    - EN: “Processing transfer”
+  - O botão de enviar transferência tem um **hint** que explica a ação:
+    - Chave: `transfer.a11y.submitButton.hint`
+    - PT-BR: “Envia o valor para o beneficiário selecionado.”
+    - EN: “Sends the amount to the selected beneficiary.”
+  - Mensagens de erro exibidas pela ViewModel de transferência também recebem um **hint**:
+    - Chave: `transfer.a11y.errorMessage.hint`
+    - PT-BR: “Mensagem de erro do formulário de transferência.”
+    - EN: “Error message from the transfer form.”
+
+Esses textos ajudam usuários com leitor de tela a entender melhor o contexto de cada ação, indo além do label visual.
+
+### Dynamic Type e fontes
+
+- Na camada UIKit (`RootView`) e nas telas SwiftUI (`LoginView`, `HomeView`, `TransferView`) são utilizados:
+  - `UIFont.preferredFont(forTextStyle:)` no UIKit.
+  - `.font(.headline)`, `.font(.title2)`, `.font(.largeTitle.bold())` etc. no SwiftUI.
+- Isso permite que o app respeite o tamanho de fonte configurado pelo usuário nas **Configurações de Acessibilidade** do iOS.
+
+### Cores, contraste e modo escuro
+
+- As telas UIKit utilizam `UIColor.systemBackground`, garantindo:
+  - contraste adequado para modo claro e escuro;
+  - adaptação automática ao tema do sistema.
+- Nas telas SwiftUI, é feito uso de:
+  - `.foregroundStyle(.secondary)` para textos de apoio;
+  - cores sem “hard-code” de hex fixo, favorecendo a adaptação ao **Dark Mode**.
+- O app foi testado em:
+  - **Light Mode**
+  - **Dark Mode**
+  - alternando diretamente no simulador / dispositivo.
+
+### Notificação local (experiência do usuário)
+
+- Após uma transferência autorizada, o app agenda uma **Local Notification** descrevendo o sucesso da operação.
+- Quando o app está em foreground, o delegate de notificações é configurado para exibir a notificação como alerta, o que:
+  - melhora a percepção do usuário;
+  - pode ser lido pelo VoiceOver como evento de feedback imediato.
+
+---
+
+Esses cuidados não esgotam todas as possibilidades de acessibilidade, mas mostram uma preocupação ativa em:
+- tornar o fluxo de login, home e transferência **compreensível por leitores de tela**;
+- respeitar **tamanho de fonte do sistema**;
+- garantir **boa leitura em modo escuro**;
+- e fornecer feedbacks claros em casos de erro e sucesso.
 
 
 # ❗️ Cenário de falha (R$403)

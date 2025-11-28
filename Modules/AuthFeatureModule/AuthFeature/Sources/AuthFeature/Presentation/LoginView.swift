@@ -34,29 +34,27 @@ public struct LoginView: View {
             // Title
             Text(NSLocalizedString("auth.title", comment: "Login title"))
                 .font(.largeTitle.bold())
+                .accessibilityAddTraits(.isHeader)
 
             // Email field
-            TextField(
-                NSLocalizedString("auth.emailPlaceholder", comment: "E-mail field placeholder"),
-                text: $viewModel.email
-            )
+            TextField(NSLocalizedString("auth.emailPlaceholder", comment: "E-mail field placeholder"), text: $viewModel.email)
             .textFieldStyle(.roundedBorder)
             .keyboardType(.emailAddress)
             .textContentType(.emailAddress)
             .textInputAutocapitalization(.never)
             .autocorrectionDisabled(true)
+            .accessibilityLabel(Text(NSLocalizedString("auth.emailPlaceholder", comment: "E-mail field placeholder")))
 
             // Password field
-            SecureField(
-                NSLocalizedString("auth.passwordPlaceholder", comment: "Password field placeholder"),
-                text: $viewModel.password
-            )
+            SecureField(NSLocalizedString("auth.passwordPlaceholder", comment: "Password field placeholder"), text: $viewModel.password)
             .textFieldStyle(.roundedBorder)
             .textContentType(.password)
+            .accessibilityLabel(Text(NSLocalizedString("auth.passwordPlaceholder", comment: "Password field placeholder")))
 
             // Loading indicator
             if viewModel.isLoading {
                 ProgressView()
+                    .accessibilityLabel(LocalizedStringKey("auth.a11y.loading"))
             }
 
             // Login button
@@ -67,17 +65,21 @@ public struct LoginView: View {
             }
             .buttonStyle(.borderedProminent)
             .padding(.top)
+            .accessibilityHint(LocalizedStringKey("auth.a11y.loginButton.hint"))
 
             // Error label
             if let error = viewModel.errorMessage {
                 Text(error)
                     .foregroundColor(.red)
                     .font(.callout)
+                    .accessibilityLabel(Text(error))
+                    .accessibilityHint(LocalizedStringKey("auth.a11y.errorMessage.hint"))
             }
 
             Spacer()
         }
         .padding()
+        .accessibilityElement(children: .contain)
     }
 }
 

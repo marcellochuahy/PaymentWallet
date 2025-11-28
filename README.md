@@ -1,6 +1,6 @@
 # PaymentWallet  
 
-<img width="1477" height="830" alt="Captura de Tela 2025-11-28 às 15 31 49" src="https://github.com/user-attachments/assets/972e189b-93fe-4a37-90ff-7deba1cd6a72" />
+<img width="970" alt="Captura de Tela 2025-11-28 às 15 31 49" src="https://github.com/user-attachments/assets/972e189b-93fe-4a37-90ff-7deba1cd6a72" />
 
 <img width="240" alt="Captura de Tela 2025-11-28 às 15 42 34" src="https://github.com/user-attachments/assets/f7eed3b2-b151-41d6-945e-04c567f5d99e" />
 

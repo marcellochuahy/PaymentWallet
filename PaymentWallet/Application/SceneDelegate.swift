@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import UserNotifications
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCenterDelegate {
 
     // MARK: - Properties
     
@@ -28,49 +29,62 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let dependencies = dependencies
         else { return }
         
+        // ⚠️ Important: configure notification center delegate and request authorization
+        configureNotifications()
+        
         let window = UIWindow(windowScene: windowScene)
         let rootViewController = RootViewController(dependencies: dependencies)
         let navigationController = UINavigationController(rootViewController: rootViewController)
         
         window.rootViewController = navigationController
+        window.overrideUserInterfaceStyle = .unspecified
+        
         self.window = window
         window.makeKeyAndVisible()
         
         // Start and retain LoginCoordinator here to ensure its lifecycle is stable
-        let coordinator = AuthCoordinator(navigationController: navigationController, dependencies: dependencies)
+        let coordinator = AuthCoordinator(
+            navigationController: navigationController,
+            dependencies: dependencies
+        )
         self.coordinator = coordinator
         coordinator.start()
+    }
+
+    // MARK: - Notifications setup
+    
+    /// Configures UNUserNotificationCenter to allow banners while the app is in foreground.
+    private func configureNotifications() {
         
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if let error {
+                print("🔔 Notification authorization error: \(error)")
+            } else {
+                print("🔔 Notification authorization granted: \(granted)")
+            }
+        }
     }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+    
+    // MARK: - UNUserNotificationCenterDelegate
+    
+    /// Called when a notification is delivered while the app is in foreground.
+    /// By default, iOS does *not* show banner/sound in foreground; we explicitly opt-in here.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        // Show banner + sound + keep in notification list even with app open
+        completionHandler([.banner, .sound, .list])
     }
-
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+    
+    /// Optional: handle taps on the notification.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        // For now we just finish. Here you could route the user to a specific screen.
+        completionHandler()
     }
-
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
-    }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
-
 
 }
-

@@ -80,3 +80,38 @@ public struct LoginView: View {
         .padding()
     }
 }
+
+// MARK: - Preview
+
+#if DEBUG
+// MARK: - Preview Helpers
+
+/// A tiny mock that simulates login always succeeding.
+private func previewPerformLoginSuccess(_: String, _: String) async throws {
+    // Simula um pequeno delay para visualizar o loading no preview
+    try? await Task.sleep(nanoseconds: 400_000_000)
+}
+
+/// Mock que sempre falha (útil se quiser criar outro preview)
+private func previewPerformLoginFailure(_: String, _: String) async throws {
+    throw AuthError.invalidCredentials
+}
+
+// MARK: - Previews
+
+#Preview("Login – Light") {
+    LoginView(
+        viewModel: LoginViewModel(performLogin: previewPerformLoginSuccess),
+        onLoginSuccess: {}
+    )
+}
+
+#Preview("Login – Dark") {
+    LoginView(
+        viewModel: LoginViewModel(performLogin: previewPerformLoginSuccess),
+        onLoginSuccess: {}
+    )
+    .preferredColorScheme(.dark)
+}
+
+#endif

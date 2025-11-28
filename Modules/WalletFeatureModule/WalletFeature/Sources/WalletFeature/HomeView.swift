@@ -59,3 +59,86 @@ public struct HomeView: View {
         }
     }
 }
+
+#if DEBUG
+
+// MARK: - Preview helpers
+
+private extension UserInfoDataTransfer {
+    static var preview: UserInfoDataTransfer {
+        .init(
+            name: "Johann Sebastian Bach",
+            email: "johann@illbebach.com"
+        )
+    }
+}
+
+private extension Array where Element == ContactDataTransfer {
+    static var previewContacts: [ContactDataTransfer] {
+        [
+            .init(
+                id: UUID(),
+                name: "Ludwig van Beethoven",
+                email: "ludwig@example.com",
+                accountDescription: "Conta corrente • 1234-5"
+            ),
+            .init(
+                id: UUID(),
+                name: "Clara Schumann",
+                email: "clara@example.com",
+                accountDescription: "Poupança • 9876-0"
+            ),
+            .init(
+                id: UUID(),
+                name: "Hildegard von Bingen",
+                email: "hildegard@example.com",
+                accountDescription: "Mosteiro • 0001-0"
+            )
+        ]
+    }
+
+    static var emptyContacts: [ContactDataTransfer] {
+        []
+    }
+}
+
+// MARK: - Previews
+
+#Preview("Home – Default (Light)") {
+    let user = UserInfoDataTransfer.preview
+    let viewModel = HomeViewModel(
+        user: user,
+        loadBalance: { 1_234.56 },
+        loadContacts: { .previewContacts },
+        onSelectContact: { _ in }
+    )
+
+    return HomeView(viewModel: viewModel)
+}
+
+#Preview("Home – Default (Dark)") {
+    let user = UserInfoDataTransfer.preview
+    let viewModel = HomeViewModel(
+        user: user,
+        loadBalance: { 9_999.99 },
+        loadContacts: { .previewContacts },
+        onSelectContact: { _ in }
+    )
+
+    return HomeView(viewModel: viewModel)
+        .preferredColorScheme(.dark)
+}
+
+#Preview("Home – Empty contacts") {
+    let user = UserInfoDataTransfer.preview
+    let viewModel = HomeViewModel(
+        user: user,
+        loadBalance: { 0.0 },
+        loadContacts: { .emptyContacts },
+        onSelectContact: { _ in }
+    )
+
+    return HomeView(viewModel: viewModel)
+}
+
+#endif

@@ -103,3 +103,97 @@ public struct TransferView: View {
         }
     }
 }
+
+#if DEBUG
+// MARK: - Preview Helpers
+
+/// Simple preview error type used to simulate failures in the preview.
+private struct PreviewTransferError: LocalizedError {
+    let message: String
+
+    var errorDescription: String? { message }
+}
+
+/// Mock that simulates a successful transfer.
+private func previewPerformTransferSuccess(
+    _: TransferFeatureEntryPoint.Beneficiary,
+    _: Decimal
+) async throws {
+    // Small delay to visualize loading state if needed
+    try? await Task.sleep(nanoseconds: 400_000_000)
+}
+
+/// Mock que sempre falha (ex.: saldo insuficiente / operação não permitida).
+private func previewPerformTransferFailure(
+    _: TransferFeatureEntryPoint.Beneficiary,
+    _: Decimal
+) async throws {
+    throw PreviewTransferError(message: "Operation not allowed in preview mode.")
+}
+
+// MARK: - Beneficiaries mock
+
+private extension TransferFeatureEntryPoint.Beneficiary {
+    static var previewList: [TransferFeatureEntryPoint.Beneficiary] {
+        [
+            .init(
+                id: UUID(),
+                name: "Ludwig van Beethoven",
+                accountDescription: "Conta corrente • 1234-5"
+            ),
+            .init(
+                id: UUID(),
+                name: "Clara Schumann",
+                accountDescription: "Poupança • 9876-0"
+            ),
+            .init(
+                id: UUID(),
+                name: "Hildegard von Bingen",
+                accountDescription: "Mosteiro • 0001-0"
+            )
+        ]
+    }
+}
+
+// MARK: - Previews
+
+#Preview("Transfer – Success (Light)") {
+    let vm = TransferViewModel(
+        beneficiaries: TransferFeatureEntryPoint.Beneficiary.previewList,
+        performTransfer: previewPerformTransferSuccess
+    )
+    vm.amountText = "150,00"
+
+    return TransferView(
+        viewModel: vm,
+        onTransferSuccess: {}
+    )
+}
+
+#Preview("Transfer – Success (Dark)") {
+    let vm = TransferViewModel(
+        beneficiaries: TransferFeatureEntryPoint.Beneficiary.previewList,
+        performTransfer: previewPerformTransferSuccess
+    )
+    vm.amountText = "99,90"
+
+    return TransferView(
+        viewModel: vm,
+        onTransferSuccess: {}
+    )
+    .preferredColorScheme(.dark)
+}
+
+#Preview("Transfer – Error state") {
+    let vm = TransferViewModel(
+        beneficiaries: TransferFeatureEntryPoint.Beneficiary.previewList,
+        performTransfer: previewPerformTransferFailure
+    )
+    vm.amountText = "403"
+
+    return TransferView(
+        viewModel: vm,
+        onTransferSuccess: {}
+    )
+}
+#endif

@@ -33,8 +33,30 @@ final class RootViewController: UIViewController {
         view = customView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        /// Ensure root respects system background (light/dark)
+        view.backgroundColor = .systemBackground
+        configureNavigationBar()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    // MARK: - Methods
+    
+    private func configureNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = .systemBackground
+        appearance.titleTextAttributes = [
+            .foregroundColor: UIColor.label
+        ]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        navigationController?.navigationBar.tintColor = .systemBlue
     }
 
 }
@@ -49,6 +71,8 @@ final class RootView: UIView {
         label.text = "PaymentWallet"
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         label.textAlignment = .center
+        /// Use dynamic color that adapts to light/dark mode
+        label.textColor = .label
         return label
     }()
     
@@ -86,6 +110,7 @@ extension RootView: ViewCoding {
     }
 
     func setupAdditionalConfiguration() {
+        /// Dynamic background color for light/dark mode
         self.backgroundColor = .systemBackground
     }
 

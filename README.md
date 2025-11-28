@@ -2,13 +2,13 @@
 
 <img width="970" alt="Captura de Tela 2025-11-28 às 15 31 49" src="https://github.com/user-attachments/assets/972e189b-93fe-4a37-90ff-7deba1cd6a72" />
 
-<img width="220" alt="Captura de Tela 2025-11-28 às 15 42 34" src="https://github.com/user-attachments/assets/f7eed3b2-b151-41d6-945e-04c567f5d99e" />
+<img width="200" alt="Captura de Tela 2025-11-28 às 15 42 34" src="https://github.com/user-attachments/assets/f7eed3b2-b151-41d6-945e-04c567f5d99e" />
 
-<img width="220" alt="Captura de Tela 2025-11-28 às 15 32 01" src="https://github.com/user-attachments/assets/4412a6d2-449e-4b28-b7a7-38a38be9303e" />
+<img width="200" alt="Captura de Tela 2025-11-28 às 15 32 01" src="https://github.com/user-attachments/assets/4412a6d2-449e-4b28-b7a7-38a38be9303e" />
 
-<img width="220" alt="Captura de Tela 2025-11-28 às 15 32 15" src="https://github.com/user-attachments/assets/c6a3dc0c-c493-41f6-b059-9c7f9910f26a" />
+<img width="200" alt="Captura de Tela 2025-11-28 às 15 32 15" src="https://github.com/user-attachments/assets/c6a3dc0c-c493-41f6-b059-9c7f9910f26a" />
 
-<img width="220" alt="Captura de Tela 2025-11-28 às 15 32 28" src="https://github.com/user-attachments/assets/c23afcf0-19ac-4eda-9d2b-0c65b720dba3" />
+<img width="200" alt="Captura de Tela 2025-11-28 às 15 32 28" src="https://github.com/user-attachments/assets/c23afcf0-19ac-4eda-9d2b-0c65b720dba3" />
 
 **Aplicativo Mobile — Carteira de Pagamentos**
 

@@ -26,15 +26,10 @@ protocol WalletRepository {
     ///
     /// - Parameters:
     ///   - contact: The beneficiary of the transfer (domain model, not DTO).
-    ///   - amount: The amount to transfer. Must be validated by the caller.
+    ///   - amount: The amount to transfer.
     ///
-    /// - Throws: An error if the transfer cannot be completed.
-    ///
-    /// Concrete implementations should update the internal balance
-    /// and optionally persist the transaction. For example, a mock
-    /// implementation may simply subtract the amount from an in-memory
-    /// value, whereas a real implementation may store the transaction
-    /// in a database or synchronize with a backend.
+    /// - Throws: An error if the transfer cannot be completed, such as:
+    ///   - `TransferError.insufficientBalance` when the amount exceeds the balance
+    ///   - Other domain errors depending on the concrete implementation
     func transfer(to contact: Contact, amount: Decimal) throws
-    
 }

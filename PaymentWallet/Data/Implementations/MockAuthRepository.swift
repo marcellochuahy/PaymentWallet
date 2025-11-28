@@ -10,22 +10,36 @@ import AuthFeature
 
 final class MockAuthRepository: AuthRepository {
 
-    private let validEmail = "user@example.com"
-    private let validPassword = "123456"
+    let validEmail = "user@example.com"
+    let validPassword = "123456"
 
-    func login(email: String, password: String) throws -> User {
-        
-        let cleanedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        let cleanedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
+    func login(email: String, password: String) throws -> (user: User, token: String) {
 
+        let cleanedEmail = email
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+        let cleanedPassword = password
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // Validate mandatory fields
         guard !cleanedEmail.isEmpty, !cleanedPassword.isEmpty else {
             throw AuthError.missingCredentials
         }
 
-        if cleanedEmail == validEmail && cleanedPassword == validPassword {
-            return User(name: "Wolfgang Amadeus Mozart", email: cleanedEmail)
+        // Validate hardcoded credentials
+        guard cleanedEmail == validEmail, cleanedPassword == validPassword else {
+            throw AuthError.invalidCredentials
         }
 
-        throw AuthError.invalidCredentials
+        // Build authenticated user
+        let user = User(
+            name: "Wolfgang Amadeus Mozart",
+            email: cleanedEmail
+        )
+
+        // Generate a fresh auth token (mock implementation)
+        let token = UUID().uuidString
+
+        return (user: user, token: token)
     }
 }

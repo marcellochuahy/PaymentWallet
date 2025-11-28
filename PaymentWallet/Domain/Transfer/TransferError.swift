@@ -19,6 +19,9 @@ enum TransferError: LocalizedError, Equatable {
     /// There is not enough balance to complete the transfer.
     case insufficientBalance
 
+    /// The user is trying to transfer money to themselves.
+    case invalidRecipient
+
     /// Fallback for unexpected failures.
     case unknown
 
@@ -26,6 +29,7 @@ enum TransferError: LocalizedError, Equatable {
 
     var errorDescription: String? {
         switch self {
+
         case .notAuthorized(let reason):
             // If backend/mocked service provides a reason, reuse it.
             if let reason, !reason.isEmpty {
@@ -40,6 +44,12 @@ enum TransferError: LocalizedError, Equatable {
             return NSLocalizedString(
                 "transferError.insufficientBalance",
                 comment: "Insufficient balance to complete transfer"
+            )
+
+        case .invalidRecipient:
+            return NSLocalizedString(
+                "transferError.invalidRecipient",
+                comment: "User cannot transfer to themselves"
             )
 
         case .unknown:

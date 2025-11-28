@@ -50,13 +50,15 @@ final class TransferCoordinatorTests: XCTestCase {
         let notificationSpy = NotificationSchedulerSpy()
         let dummyAuthTokenStore = DummyAuthTokenStore()
         let dummyAuthRepo = DummyAuthRepository()
+        let analyticsSpy = AnalyticsSpy()
 
         let dependencies = TestDependenciesContainer(
             authRepository: dummyAuthRepo,
             walletRepository: walletRepo,
             authTokenStore: dummyAuthTokenStore,
             authorizationService: authService,
-            notificationScheduler: notificationSpy
+            notificationScheduler: notificationSpy,
+            analytics: analyticsSpy
         )
 
         let nav = UINavigationController()
@@ -99,8 +101,14 @@ final class TransferCoordinatorTests: XCTestCase {
             XCTFail("Unexpected error type: \(error)")
         }
 
-        XCTAssertTrue(walletRepo.receivedTransfers.isEmpty, "Repository.transfer should not be called when not authorized.")
-        XCTAssertTrue(notificationSpy.successAmounts.isEmpty, "No success notification should be scheduled when not authorized.")
+        XCTAssertTrue(
+            walletRepo.receivedTransfers.isEmpty,
+            "Repository.transfer should not be called when not authorized."
+        )
+        XCTAssertTrue(
+            notificationSpy.successAmounts.isEmpty,
+            "No success notification should be scheduled when not authorized."
+        )
     }
 
     func test_performTransfer_whenAuthorized_callsRepositoryAndSchedulesNotification() async throws {
@@ -139,7 +147,7 @@ final class TransferCoordinatorTests: XCTestCase {
     }
 
     func test_performTransfer_whenContactNotFound_throwsUnknownError() async throws {
-        // GIVEN – repositório sem o contato correspondente
+        // GIVEN – repository without the matching contact
         let emptyRepo = WalletRepositorySpy(
             contacts: [],
             balance: 500
@@ -149,13 +157,15 @@ final class TransferCoordinatorTests: XCTestCase {
         let notificationSpy = NotificationSchedulerSpy()
         let dummyAuthTokenStore = DummyAuthTokenStore()
         let dummyAuthRepo = DummyAuthRepository()
+        let analyticsSpy = AnalyticsSpy()
 
         let dependencies = TestDependenciesContainer(
             authRepository: dummyAuthRepo,
             walletRepository: emptyRepo,
             authTokenStore: dummyAuthTokenStore,
             authorizationService: authService,
-            notificationScheduler: notificationSpy
+            notificationScheduler: notificationSpy,
+            analytics: analyticsSpy
         )
 
         let navigationController = UINavigationController()
@@ -164,7 +174,7 @@ final class TransferCoordinatorTests: XCTestCase {
             dependencies: dependencies
         )
 
-        // Beneficiário com ID que não existe no repositório
+        // Beneficiary with an ID that does not exist in the repository
         let bogusBeneficiary = TransferFeatureEntryPoint.Beneficiary(
             id: UUID(),
             name: "Ghost",
@@ -190,8 +200,9 @@ final class TransferCoordinatorTests: XCTestCase {
             "No success notification should be scheduled for unknown error."
         )
     }
+
     func test_performTransfer_whenRepositoryThrowsTransferError_propagatesSameError() async throws {
-        // GIVEN – repositório configurado para lançar insufficientBalance
+        // GIVEN – repository configured to throw insufficientBalance
         let repoError: TransferError = .insufficientBalance
         let (sut, walletRepo, _, notificationSpy, beneficiary, amount) = makeSUT(
             isAuthorized: true,
@@ -208,8 +219,15 @@ final class TransferCoordinatorTests: XCTestCase {
             XCTFail("Unexpected error type: \(error)")
         }
 
-        XCTAssertEqual(walletRepo.receivedTransfers.count, 1, "Repository.transfer should still be called once.")
-        XCTAssertTrue(notificationSpy.successAmounts.isEmpty, "No success notification should be scheduled when repository fails.")
+        XCTAssertEqual(
+            walletRepo.receivedTransfers.count,
+            1,
+            "Repository.transfer should still be called once."
+        )
+        XCTAssertTrue(
+            notificationSpy.successAmounts.isEmpty,
+            "No success notification should be scheduled when repository fails."
+        )
     }
 }
 
@@ -269,13 +287,10 @@ private final class NotificationSchedulerSpy: LocalNotificationScheduler {
 }
 
 private final class DummyAuthRepository: AuthRepository {
-    func login(email: String, password: String) throws -> PaymentWallet.User {
-        // Return a harmless placeholder user.
-        return PaymentWallet.User(
-            id: UUID(),
-            name: "Dummy",
-            email: "dummy@example.com"
-        )
+    func login(email: String, password: String) throws -> (user: PaymentWallet.User, token: String) {
+        let user = PaymentWallet.User(id: UUID(), name: "Dummy", email: "dummy@example.com")
+        let token = "abcdefghijklmnopqrst"
+        return (user: user, token: token)
     }
 }
 
@@ -291,5 +306,16 @@ private final class DummyAuthTokenStore: AuthTokenStore {
     
     func clear() {
         // Intentionally left empty.
+    }
+}
+
+// MARK: - AnalyticsSpy
+
+private final class AnalyticsSpy: AnalyticsService {
+
+    private(set) var events: [(name: String, parameters: [String: String])] = []
+
+    func logEvent(_ name: String, parameters: [String: String]) {
+        events.append((name, parameters))
     }
 }

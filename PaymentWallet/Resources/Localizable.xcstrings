@@ -445,6 +445,23 @@
         }
       }
     },
+    "transferError.invalidRecipient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You cannot transfer to yourself."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Você não pode transferir para você mesmo."
+          }
+        }
+      }
+    },
     "transferError.notAuthorized" : {
       "extractionState" : "manual",
       "localizations" : {

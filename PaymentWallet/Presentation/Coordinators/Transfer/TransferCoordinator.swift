@@ -117,4 +117,5 @@ final class TransferCoordinator {
         // 4) Schedule local notification for the authorized transfer.
         dependencies.notificationScheduler.scheduleSuccessNotification(for: amount)
     }
+    
 }

@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Properties
     
     var window: UIWindow?
-    private let dependencies = DependencyContainer()
+    private var dependencies: AppDependencies?
     private var coordinator: AuthCoordinator?
 
     // MARK: - Lifecycle
@@ -21,7 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         
-        guard let windowScene = (scene as? UIWindowScene) else { return }
+        dependencies = DependencyContainer()
+        
+        guard
+            let windowScene = (scene as? UIWindowScene),
+            let dependencies = dependencies
+        else { return }
         
         let window = UIWindow(windowScene: windowScene)
         let rootViewController = RootViewController(dependencies: dependencies)

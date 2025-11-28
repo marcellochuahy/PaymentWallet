@@ -8,10 +8,12 @@
 import Foundation
 
 final class MockWalletRepository: WalletRepository {
-    
+
+    // MARK: - Internal state
+
     /// Internal in-memory balance used for mock transfers.
     private var balance: Decimal = 1200.50
-    
+
     /// Stable in-memory contact list.
     /// IDs are created once and reused across all calls to `getContacts()`.
     private let contacts: [Contact] = [
@@ -35,26 +37,31 @@ final class MockWalletRepository: WalletRepository {
         )
     ]
 
-    /// Returns the current mock balance.
+    // MARK: - Accessors
+
     func getBalance() -> Decimal {
         balance
     }
 
-    /// Returns a static list of mock contacts.
     func getContacts() -> [Contact] {
         contacts
     }
 
-    /// Simulates a successful money transfer by subtracting the amount
-    /// from the in-memory balance.
+    // MARK: - Transfer logic
+
+    /// Simulates a money transfer.
+    /// Validates available balance before debiting.
     ///
-    /// - Parameters:
-    ///   - contact: The destination contact of the transfer.
-    ///   - amount: The amount to be transferred.
-    ///
-    /// - Note: This mock implementation never throws.
+    /// - Throws:
+    ///   - TransferError.insufficientBalance when amount > balance.
     func transfer(to contact: Contact, amount: Decimal) throws {
+
+        // 1) Validate sufficient balance
+        guard amount <= balance else {
+            throw TransferError.insufficientBalance
+        }
+
+        // 2) Simulate successful debit
         balance -= amount
     }
-    
 }

@@ -24,7 +24,9 @@ protocol AppDependencies {
     // Services
     var authorizationService: AuthorizationService { get }
     var notificationScheduler: LocalNotificationScheduler { get }
-    
+
+    // Analytics
+    var analytics: AnalyticsService { get }
 }
 
 // MARK: - DependencyContainer
@@ -58,6 +60,12 @@ final class DependencyContainer: AppDependencies {
 
     lazy var notificationScheduler: LocalNotificationScheduler = {
         LocalNotificationSchedulerImpl()
+    }()
+
+    // MARK: - Analytics
+
+    lazy var analytics: AnalyticsService = {
+        AnalyticsServiceImpl()
     }()
 
     // MARK: - Initializers
